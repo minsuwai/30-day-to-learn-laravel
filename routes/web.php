@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SessionController;
 use App\Models\Job;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -15,11 +17,47 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::view('/contact', 'contact');
+
+Route::resource('jobs', JobController::class);
+
+//Auth
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Route::get('/contact', function () {
 //     return view('contact');
 // });
 
-Route::view('/contact', 'contact');
 
 // index
 // Route::controller(JobController::class)->group(function () {
@@ -31,5 +69,3 @@ Route::view('/contact', 'contact');
 //     Route::patch('/jobs/{job}',  'update');
 //     Route::delete('/jobs/{job}',  'destory');
 // });
-
-Route::resource('jobs', JobController::class);
