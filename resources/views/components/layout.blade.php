@@ -42,6 +42,13 @@
                             <x-nav-link href="/login" :active="request()->is('login')">Log In</x-nav-link>
                             <x-nav-link href="/register" :active="request()->is('register')">Register</x-nav-link>
                             @endguest
+
+                            @auth
+                            <form action="/logout" method="POST">
+                                @csrf
+                                <x-form-button>Log out</x-form-button>
+                            </form>
+                            @endauth
                             {{-- <button type="button"
                                 class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="absolute -inset-1.5"></span>
