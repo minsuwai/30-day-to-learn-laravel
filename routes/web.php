@@ -3,6 +3,7 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Mail\JobPosted;
 use App\Models\Job;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,14 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('home');
 // });
+
+Route::get('test', function () {
+    \Illuminate\Support\Facades\Mail::to('minsuwai.dev@gmail.com')->send(
+        new JobPosted()
+    );
+
+    return 'success';
+});
 
 Route::view('/', 'home');
 
@@ -28,7 +37,10 @@ Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
     ->middleware('auth')
     ->can('edit', 'job');
 
-Route::patch('jobs/{job}', [JobController::class, 'update']);
+Route::patch('jobs/{job}', [JobController::class, 'update'])
+    ->middleware('auth')
+    ->can('edit', 'job');
+
 Route::delete('jobs/{job}', [JobController::class, 'destory']);
 
 
