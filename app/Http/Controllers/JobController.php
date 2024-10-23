@@ -44,7 +44,7 @@ class JobController extends Controller
             'employer_id' => 1
         ]);
 
-        \Illuminate\Support\Facades\Mail::to($job->employer->user)->send(
+        \Illuminate\Support\Facades\Mail::to($job->employer->user)->queue(
             new JobPosted($job)
         );
 
